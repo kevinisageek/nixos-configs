@@ -2,34 +2,19 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
-
-{
+{ config, pkgs, ... }: {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      ./hardware-configuration.nix ../../hardware/ssd.nix
+      #<nixos-hardware/lenovo/thinkpad/x260>
     ];
 
-  options = {
-    ssd.enable = lib.mkEnableOption "Enables TRIM support for SSDs";
-  };
-
-  config = lib.mkIf config.ssd.enable {
-    boot.kernel.sysctl = { "vm.swappiness" = lib.mkDefault 1; };
-    services.fstrim.enable = lib.mkDefault true;
-  };
-}
-
-imports = [
-  <nixos-hardware/lenovo/thinkpad/x260>
-  ./hardware-configuration.nix
-];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nomadic-nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -38,12 +23,6 @@ imports = [
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "Europe/London";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.utf8";
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -83,17 +62,6 @@ imports = [
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.kevin = {
-    isNormalUser = true;
-    description = "kevin";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox
-    #  thunderbird
-    ];
-  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
