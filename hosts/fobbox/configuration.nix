@@ -4,7 +4,7 @@
       ./hardware-configuration.nix ../../hardware/ssd.nix
     ];
     
-    networking.hostName = "basecamp";
+    networking.hostName = "fobbox";
     services.openssh.enable = true;
     nixpkgs.config.allowUnfree = true;
 }

@@ -21,5 +21,12 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.utf8";
+  
+  # Configure console keymap
+  console.keyMap = "uk";
 
+  programs.gnupg.agent = {
+     enable = true;
+     enableSSHSupport = true;
+  };
 }
