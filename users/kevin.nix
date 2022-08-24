@@ -14,6 +14,7 @@
       calibre
       mosh
       taskwarrior
+      openscad
     ];
   };
   # Set your time zone.
