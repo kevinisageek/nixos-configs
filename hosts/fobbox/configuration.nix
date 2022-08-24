@@ -7,4 +7,5 @@
     networking.hostName = "fobbox";
     services.openssh.enable = true;
     nixpkgs.config.allowUnfree = true;
+    # comment for ssh key commit test
 }
